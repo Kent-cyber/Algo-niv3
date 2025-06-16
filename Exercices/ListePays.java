@@ -94,11 +94,11 @@ public class ListePays {
 
         System.out.println("Bonjour, quel pays voulez-vous visiter ?");
 
-        countryList(countryList);
-
         try {
+
             while (answer == true) {
 
+                countryList(countryList);
                 int choice = sc.nextInt();
                 countryChoice(choice);
 
@@ -109,7 +109,8 @@ public class ListePays {
             System.out.println("Votre voyage est terminé :) !");
 
         } catch (Exception e) {
-            System.out.println("Erreur de saisi ! Le programme s'est arrêté !");
+            System.out.println("Erreur de saisi !");
+            main(args);
         }
 
         sc.close();
