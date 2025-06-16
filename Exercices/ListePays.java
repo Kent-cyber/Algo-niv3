@@ -53,10 +53,15 @@ import java.util.*;
 
 public class ListePays {
 
-    public static void countryList(String[] countryList) {
+    public static String countryList(String[] countryList) {
+
+        String result = "";
         for (int i = 0; i < countryList.length; i++) {
-            System.out.println(i + " - " + countryList[i]);
+
+            result += i + " - " + countryList[i];
         }
+
+        return result;
     }
 
     public static void countryChoice(int choice) {
@@ -74,7 +79,7 @@ public class ListePays {
                 break;
 
             case 3:
-                System.out.println("Benvenuto in Italia !");
+                System.out.println("Benvenuti in Italia !");
                 break;
 
             case 4:
@@ -96,7 +101,7 @@ public class ListePays {
 
         try {
 
-            while (answer == true) {
+            while (answer) {
 
                 countryList(countryList);
                 int choice = sc.nextInt();
