@@ -53,15 +53,10 @@ import java.util.*;
 
 public class ListePays {
 
-    public static String countryList(String[] countryList) {
-
-        String result = "";
+    public static void countryList(String[] countryList) {
         for (int i = 0; i < countryList.length; i++) {
-
-            result += i + " - " + countryList[i];
+            System.out.println(i + " - " + countryList[i]);
         }
-
-        return result;
     }
 
     public static void countryChoice(int choice) {
