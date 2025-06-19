@@ -1,4 +1,4 @@
-package Exercices;
+package echauffement;
 
 import java.util.*;
 

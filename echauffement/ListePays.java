@@ -47,7 +47,7 @@ O
 Votre voyage est terminé :) !
 
 */
-package Exercices;
+package echauffement;
 
 import java.util.*;
 

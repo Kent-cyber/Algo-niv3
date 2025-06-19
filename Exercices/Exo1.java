@@ -18,6 +18,8 @@ package Exercices;
 import java.util.*;
 
 public class Exo1 {
+
+    static Scanner sc = new Scanner(System.in);
     
     public static int Addition(int a, int b) {
         int resultat = a + b;
@@ -25,21 +27,17 @@ public class Exo1 {
     }
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+        while (true) {
+            try {
+                System.out.println("Donnez deux nombres :");
+                int a = sc.nextInt();
+                int b = sc.nextInt();
+                System.out.println("Le résultat vaut " + Addition(a, b));
 
-        System.out.println("Donnez deux nombres :");
-
-        try {
-
-            int a = sc.nextInt();
-            int b = sc.nextInt();
-            System.out.println("Le résultat vaut " + Addition(a, b));
-
-        } catch (Exception e) {
-            System.out.println("Erreur de saisi !");
-            main(args);
+            } catch (NumberFormatException e) {
+                System.out.println("Veuillez entrer un nombre valide");
+                return;
+            }
         }
-        
-        sc.close();
     }
 }
