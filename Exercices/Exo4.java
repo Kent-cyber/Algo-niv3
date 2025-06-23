@@ -3,6 +3,9 @@ package Exercices;
 import java.util.Scanner;
 
 public class Exo4 {
+
+    static Scanner sc = new Scanner(System.in);
+
     public static int divisible(int a) {
 
         if (a % 2 == 0) {
@@ -17,8 +20,6 @@ public class Exo4 {
     }
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
-
         System.out.println("Donnez un nombre et je vous dirai s'il est divisible :");
 
         try {
@@ -30,7 +31,5 @@ public class Exo4 {
             System.out.println("Erreur de saisi !");
             main(args);
         }
-        
-        sc.close();
     }
 }

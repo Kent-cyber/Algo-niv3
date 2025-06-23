@@ -22,21 +22,27 @@ public class Exo1 {
     static Scanner sc = new Scanner(System.in);
     
     public static int Addition(int a, int b) {
-        int resultat = a + b;
-        return resultat;
+        return a + b;
     }
     public static void main(String[] args) {
 
         while (true) {
             try {
-                System.out.println("Donnez deux nombres :");
-                int a = sc.nextInt();
+                System.out.println("Donnez deux nombres (ou tapez 'q' pour quitter) :");
+                String input = sc.next();
+                if (input.equalsIgnoreCase("q")) {
+                    System.out.println("Fermeture du programme");
+                    break;
+                }
+                int a = Integer.parseInt(input);
                 int b = sc.nextInt();
                 System.out.println("Le résultat vaut " + Addition(a, b));
 
             } catch (NumberFormatException e) {
                 System.out.println("Veuillez entrer un nombre valide");
-                return;
+            } catch (InputMismatchException e) {
+                System.out.println("Entrée invalide. Veuillez entrer des nombres");
+                sc.next();
             }
         }
     }

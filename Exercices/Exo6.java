@@ -3,6 +3,8 @@ package Exercices;
 import java.util.Scanner;
 
 public class Exo6 {
+
+    static Scanner sc = new Scanner(System.in);
     
     public static String presentation(String name, int age) {
         String presentation = "Je m'appelle " + name + ", j'ai " + age + " ans";
@@ -10,8 +12,6 @@ public class Exo6 {
         return presentation;
     }
     public static void main(String[] args) {
-
-        Scanner sc = new Scanner(System.in);
 
         System.out.println("Entrez votre nom et votre âge :");
 
@@ -25,7 +25,5 @@ public class Exo6 {
             System.out.println("Erreur de saisi !");
             main(args);
         }
-        
-        sc.close();
     }
 }

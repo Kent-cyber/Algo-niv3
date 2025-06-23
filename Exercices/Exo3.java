@@ -3,6 +3,9 @@ package Exercices;
 import java.util.Scanner;
 
 public class Exo3 {
+
+    static Scanner sc = new Scanner(System.in);
+
     public static int EvenOdd(int a, int b) {
         int resultat = a + b;
 
@@ -18,8 +21,6 @@ public class Exo3 {
     }
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
-
         System.out.println("Donnez deux nombres :");
 
         try {
@@ -32,7 +33,5 @@ public class Exo3 {
             System.out.println("Erreur de saisi !");
             main(args);
         }
-        
-        sc.close();
     }
 }

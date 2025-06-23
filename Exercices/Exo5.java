@@ -3,6 +3,9 @@ package Exercices;
 import java.util.Scanner;
 
 public class Exo5 {
+
+    static Scanner sc = new Scanner(System.in);
+
     public static int equation(int a, int b, int c) {
         int resultat = a * b / c;
 
@@ -18,8 +21,6 @@ public class Exo5 {
     }
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
-
         System.out.println("Equation de :");
 
         try {
@@ -33,7 +34,5 @@ public class Exo5 {
             System.out.println("Erreur de saisi !");
             main(args);
         }
-        
-        sc.close();
     }
 }
