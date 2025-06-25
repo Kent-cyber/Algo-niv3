@@ -7,7 +7,7 @@ l’afficher sous forme de liste avec :
 
 N°id du produit : Qui se crée automatiquement en incrémentation 
 
-Nom du produit : Ville / Pays 
+Nom du produit :  
 
 Type de produit : TV/Electro-ménager/Micro-Informatique/Audio/  
 
@@ -28,14 +28,12 @@ import java.util.*;
 
 public class Jalonblanc {
 
-    static Scanner sc = new Scanner(System.in);
+    static Scanner sc = new Scanner(System.in); // Appelle le scanner
     public static void main(String[] args) {
         
         ArrayList<String> products = new ArrayList<>(); // Créer la liste des produits
         ArrayList<Integer> ids = new ArrayList<>(); // Créer la liste des IDs
         int choice = 0; // Initialise le choix de l'utilisateur
-        
-        Methods.ajoutProduits(products, ids);
 
         while (choice != 5) { // Le choix dans le menu pour l'utilisateur
             System.out.println("1 : Consulter la liste");
@@ -47,26 +45,30 @@ public class Jalonblanc {
 
             switch (choice) {
                 case 1:
-                    Methods.afficherListe(products);
+                    Methods.afficherListe(products); // Appelle la liste des produits
+                    if (products.isEmpty()) {
+                        System.out.println("La liste est vide");
+                    }
                     break;
                 
                 case 2:
-                    Methods.ajoutProduits(products, ids);
+                    Methods.ajoutProduits(products, ids); // Appelle la méthode d'ajout de produits
                     break;
 
                 case 3:
-                    Methods.rechercherParId(products, ids);
+                    Methods.rechercherParId(products, ids); // Appelle la méthode de recherche par l'ID
                     break;
 
                 case 4:
-                    Methods.supprimerListe(products, ids);
+                    Methods.supprimerListe(products, ids); // Appelle la méthode pour supprimer la liste de produits
+                    break;
                 
                 case 5:
-                    System.out.println("Merci d'avoir consulté, au revoir !");
+                    System.out.println("Merci d'avoir consulté, au revoir !"); // Ferme le programme
                     break;
 
                 default:
-                    System.out.println("Option invalide, réessayez");
+                    System.out.println("Option invalide, réessayez"); // Si ça ne demande pas à la réponse de l'utilisateur
             }
         }
     }
