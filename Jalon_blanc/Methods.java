@@ -12,7 +12,7 @@ public class Methods {
     
     static Scanner sc = new Scanner(System.in); // Appelle le scanner
 
-    public static LocalDate saisirDate(LocalDate dateDep) { // Demande à l'utilisateur de saisir une date valide
+    public static String saisirDate(LocalDate dateDep) { // Demande à l'utilisateur de saisir une date valide
         
         while (dateDep == null) {
             try {
@@ -23,7 +23,7 @@ public class Methods {
                 System.out.println("Date de format invalide, réessayez");
             }
         }
-        return dateDep;
+        return dateDep.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
     public static boolean questionYesNo(String question) { // Pose une question à choix fermés
@@ -47,8 +47,9 @@ public class Methods {
         }
     }
 
-    public static double calculPrix(LocalDate dateProduct, boolean solde, double prixInit) { // Calcul le prix final en fonction de la date et du solde
-        long mois = ChronoUnit.MONTHS.between(dateProduct, LocalDate.now());
+    public static double calculPrix(String dateProduct, boolean solde, double prixInit) { // Calcul le prix final en fonction de la date et du solde
+        LocalDate dtf = LocalDate.parse(dateProduct, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        long mois = ChronoUnit.MONTHS.between(dtf, LocalDate.now());
         double prixFinal = prixInit;
 
         if (mois >= 4) {
@@ -86,7 +87,7 @@ public class Methods {
                 }
             }
 
-            LocalDate dateProduct = saisirDate(null);
+            String dateProduct = saisirDate(null);
             boolean solde = questionYesNo("Est-il soldé (oui/non) ? ");
 
             double prixInit = 0;
@@ -102,7 +103,7 @@ public class Methods {
             double prixFinal = calculPrix(dateProduct, solde, prixInit);
             ids.add(id);
 
-            String product = "ID : " + id + " | " + productName + " | " + productType + " | " + dateProduct.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+            String product = "ID : " + id + " | " + productName + " | " + productType + " | " + dateProduct
                             + " | " + (solde ? "Oui" : "Non") + " | " + prixFinal;
             
             products.add(product);
