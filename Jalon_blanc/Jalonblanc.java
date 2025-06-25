@@ -25,20 +25,19 @@ On veut gérer cette liste en ajoutant ou supprimant nos produits. On peut aussi
 package Jalon_blanc;
 
 import java.util.*;
-import Jalon_blanc.Methods;
 
 public class Jalonblanc {
 
     static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
         
-        ArrayList<String> products = new ArrayList<>();
-        ArrayList<Integer> ids = new ArrayList<>();
-        int choice = 0;
+        ArrayList<String> products = new ArrayList<>(); // Créer la liste des produits
+        ArrayList<Integer> ids = new ArrayList<>(); // Créer la liste des IDs
+        int choice = 0; // Initialise le choix de l'utilisateur
         
         Methods.ajoutProduits(products, ids);
 
-        while (choice != 5) {
+        while (choice != 5) { // Le choix dans le menu pour l'utilisateur
             System.out.println("1 : Consulter la liste");
             System.out.println("2 : Ajouter un produit");
             System.out.println("3 : Rechercher un produit par ID");

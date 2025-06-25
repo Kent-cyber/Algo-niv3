@@ -10,9 +10,9 @@ import java.util.Scanner;
 
 public class Methods {
     
-    static Scanner sc = new Scanner(System.in);
+    static Scanner sc = new Scanner(System.in); // Appelle le scanner
 
-    public static LocalDate saisirDate(LocalDate dateDep) { // Méthode de saisi de Date
+    public static LocalDate saisirDate(LocalDate dateDep) { // Demande à l'utilisateur de saisir une date valide
         
         while (dateDep == null) {
             try {
@@ -26,7 +26,7 @@ public class Methods {
         return dateDep;
     }
 
-    public static boolean questionYesNo(String question) { // Méthode pour lire les questions à choix fermés
+    public static boolean questionYesNo(String question) { // Pose une question à choix fermés
 
         while (true) {
             System.out.print(question);
@@ -47,11 +47,11 @@ public class Methods {
         }
     }
 
-    public static double calculPrix(LocalDate dateProduct, boolean solde, double prixInit) {
+    public static double calculPrix(LocalDate dateProduct, boolean solde, double prixInit) { // Calcul le prix final en fonction de la date et du solde
         long mois = ChronoUnit.MONTHS.between(dateProduct, LocalDate.now());
         double prixFinal = prixInit;
 
-        if (mois > 4) {
+        if (mois >= 4) {
             prixFinal -= prixInit * 0.1;
 
         } else if (solde) {
@@ -60,7 +60,7 @@ public class Methods {
         return prixFinal;
     }
 
-    public static void ajoutProduits(ArrayList<String> products, ArrayList<Integer> ids) {
+    public static void ajoutProduits(ArrayList<String> products, ArrayList<Integer> ids) { // Ajoute des produits à la liste en demandant les informations à l'utilisateur
 
         int id = 1;
         while (true) {
@@ -68,8 +68,23 @@ public class Methods {
             
             System.out.print("Nom du produit : ");
             String productName = sc.nextLine();
-            System.out.print("Type de produit : ");
-            String productType = sc.nextLine();
+
+            String productType = "";
+            while (productType.isEmpty()) {
+                System.out.print("Type de produit : ");
+                List<String> type = List.of("TV", "Electro-ménager", "Micro-Informatique", "Audio");
+
+                try {
+                    String response = sc.nextLine().trim();
+                    if (type.contains(response)) {
+                        productType = response;
+                    } else {
+                        System.out.println("Ce type de produit n'existe pas");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Répondez correctement");
+                }
+            }
 
             LocalDate dateProduct = saisirDate(null);
             boolean solde = questionYesNo("Est-il soldé (oui/non) ? ");
@@ -97,14 +112,14 @@ public class Methods {
         }
     }
 
-    public static void afficherListe(ArrayList<String> products) {
+    public static void afficherListe(ArrayList<String> products) { // Affiche tous les produits enregistrés
         System.out.println("\n=== Liste des produits ===");
         for (String product : products) {
             System.out.println(product);
         }
     }
 
-    public static void rechercherParId(ArrayList<String> products, ArrayList<Integer> ids) {
+    public static void rechercherParId(ArrayList<String> products, ArrayList<Integer> ids) { // Recherche le produit par l'ID
         int idRecherche = 0;
         while (idRecherche <= 0) {
             try {
@@ -121,7 +136,7 @@ public class Methods {
         } 
     }
 
-    public static void supprimerListe(ArrayList<String> products, ArrayList<Integer> ids) {
+    public static void supprimerListe(ArrayList<String> products, ArrayList<Integer> ids) { // Supprime le produit de la liste par son ID
         int idSupp = 0;
         while (idSupp <= 0) {
             try {
