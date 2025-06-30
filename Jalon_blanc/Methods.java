@@ -6,7 +6,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import Functions.*;
+import Functions.*; // Appelle à mes méthodes que j'ai crée
 
 public class Methods {
     
