@@ -35,25 +35,32 @@ public class ListingMedic {
         
         ArrayList<String> rdv = new ArrayList<>(); // Création de la liste des rendez-vous
         ArrayList<String> referenceCode = new ArrayList<>(); // Création de la liste des codes de référence
-        ArrayList<LocalDateTime> datesRDV = new ArrayList<>();
+        ArrayList<LocalDateTime> datesRDV = new ArrayList<>(); // Création de la liste des dates
         int choice = 0; // Initialise le choix de l'utilisateur
 
+        System.out.println("Bienvenue cher utilisateur, que puis-je pour vous ?");
         while (choice != 6) { // Affiche le menu et ses fonctionnalités
-            System.out.println("=== Menu ===");
+            System.out.println("\n=== Menu ===");
             System.out.println("1 : Afficher les rendez-vous"); // Méthode acquis et validé
             System.out.println("2 : Ajouter un rendez-vous"); // Méthode acquis et validé
-            System.out.println("3 : Modifier un rendez-vous"); // Méthode acquis et validé
+            System.out.println("3 : Décaler un rendez-vous"); // Méthode acquis et validé
             System.out.println("4 : Rechercher un rendez-vous"); // Méthode acquis et validé
             System.out.println("5 : Annuler un rendez-vous"); // Méthode acquis et validé
             System.out.println("6 : Quitter");
             System.out.print("Entrez votre choix : ");
-            choice = sc.nextInt(); // L'utilisateur entre un nombre pour choisir
+
+            try {
+                choice = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Veuillez entrer un nombre entier valide");
+                continue;
+            }
 
             switch (choice) {
                 case 1:
                     MenuMethods.afficherRDV(rdv); // Appelle la liste des rendez-vous
                     break;
-                    
+                        
                 case 2:
                     MenuMethods.ajoutRDV(rdv, referenceCode, datesRDV); // Appelle la méthode d'ajout de rendez-vous
                     break;
@@ -67,9 +74,9 @@ public class ListingMedic {
                     break;
 
                 case 5:
-                    MenuMethods.annulerRDV(rdv, referenceCode); // Appelle la méthode pour supprimer la liste des rendez-vous
+                    MenuMethods.annulerRDV(rdv, referenceCode, datesRDV); // Appelle la méthode pour supprimer la liste des rendez-vous
                     break;
-                    
+                        
                 case 6:
                     System.out.println("Merci d'avoir consulté, au revoir !"); // Ferme le programme
                     break;

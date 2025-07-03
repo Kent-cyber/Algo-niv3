@@ -40,9 +40,22 @@ public class OtherMethods {
         if (inputString == null || inputString.isEmpty()) { // Retourne la chaîne originale si elle est nulle ou vide
             return inputString;
         }
-        char firstLetter = inputString.charAt(0); // Prend la première lettre de la chaîne
-        char capitalFirstLetter = Character.toUpperCase(firstLetter); // La convertit en majuscule
+        String[] words = inputString.split("-");
+        StringBuilder result = new StringBuilder();
 
-        return inputString.replace(inputString.charAt(0), capitalFirstLetter); // La retourne dans la chaîne de caractère avec le majuscule
+        for (int i = 0; i < words.length; i++) {
+            String word = words[i];
+            if (!word.isEmpty()) {
+                result.append(Character.toUpperCase(word.charAt(0)));
+                if (word.length() > 1) {
+                    result.append(word.substring(1));
+                }
+            }
+            if (i < words.length - 1) {
+                result.append("-");
+            }
+        }
+
+        return result.toString();
     }
 }

@@ -39,18 +39,32 @@ public class MenuMethods {
 
         while (true) {
             System.out.println("\n=== Registre de rendez-vous");
-            System.out.print("Nom : ");
-            String nom = OtherMethods.capitalize(sc.nextLine()); // le mettre sous forme de la méthode captalize()
-            System.out.print("Prénom : ");
-            String prenom = OtherMethods.capitalize(sc.nextLine());
+
+            String nom = "";
+            while (nom.isEmpty()) {
+                System.out.print("Nom : ");
+                nom = sc.nextLine();
+                if (nom.isEmpty()) { // Vérifie si le nom est vide
+                    System.out.println("Le nom ne peut pas être vide. Veuillez le saisir à nouveau");
+                }
+            }
+
+            String prenom = "";
+            while (prenom.isEmpty()) {
+                System.out.print("Prénom : ");
+                prenom = sc.nextLine();
+                if (prenom.isEmpty()) { // Vérifie si le prénom est vide
+                    System.out.println("Le prénom ne peut pas être vide. Veuillez le saisir à nouveau");
+                }
+            }
 
             int age = 0;
             while (age <= 0 || age >= 120) {
                 try {
                     System.out.print("Age : ");
                     age = Integer.parseInt(sc.nextLine());
-                } catch (NumberFormatException e) {
-                    System.out.println("Veuillez entrer un âge valide");
+                } catch (NumberFormatException e) { // Affiche ce message si l'utilisateur n'entre pas un nombre
+                    System.out.println("Veuillez entrer un âge valide (entre 0 et 120)");
                 }
             }
 
@@ -63,14 +77,14 @@ public class MenuMethods {
             while (true) {
                 System.out.print("Choisissez en tapant le code : ");
                 inputcode = sc.nextLine().toUpperCase();
-                if (labelle.containsKey(inputcode)) break;
+                if (labelle.containsKey(inputcode)) break; // La boucle s'arrête dès que l'utilisateur entre le bon code
                 System.out.println("Code invalide");
             }
             
             LocalDateTime date;
             while (true) {
                 date = DateMethods.saisirDateHeure(null); // Entre la date avec des paramètres de la fonction
-                if (!datesRDV.contains(date)) {
+                if (!datesRDV.contains(date)) { // Vérifie s'il existe déjà une date à cette horaire dans la liste des dates
                     datesRDV.add(date);
                     break;
                 } else {
@@ -96,7 +110,7 @@ public class MenuMethods {
             double prixFinal = OtherMethods.calculPrix(age, prixInit); // Calcul le prix donné
 
             // chaîne de caractère qui récapitule les données enregistrées et les mettre dans la liste
-            String recapRDV = "Nom et prénom : " + nom + " " + prenom + 
+            String recapRDV = "\nNom et prénom : " + OtherMethods.capitalize(nom) + " " + OtherMethods.capitalize(prenom) + 
                 "\nAge : " + age + 
                 "\nType de consultation : " + labelle.get(inputcode) +
                 "\nDate et heure de rendez-vous : " + date.format(DateTimeFormatter.ofPattern("EEEE d MMMM yyyy à HH:mm", Locale.FRANCE)) +
@@ -110,24 +124,27 @@ public class MenuMethods {
     }
 
     public static void modifierRDV(ArrayList<String> rdvs, ArrayList<String> referenceCode) { // Fonction qui permet de modifier les rendez-vous
-        System.out.print("Entrez un fragment du code de référence : ");
-        String inputcode = sc.nextLine().trim().toUpperCase();
+        System.out.print("\nEntrez un fragment du code de référence : ");
+        String inputcode = sc.nextLine().toUpperCase();
 
         boolean found = false;
-        for (int i = 0; i < rdvs.size(); i++) {
-            String rdv = rdvs.get(i);
-            if (referenceCode.contains(inputcode)) {
+        for (int i = 0; i < rdvs.size(); i++) { // On récupère le code de référence associé
+            String code = referenceCode.get(i).toUpperCase();
+            if (code.contains(inputcode)) { // Vérifie si ce code contient le fragment recherché
+                found = true;
                 System.out.println("Rendez-vous trouvé");
 
                 int[] decalages = DateMethods.demanderDecalage(sc); // Demande du décalage en jours et heures
-                String newVersion = DateMethods.decalerRDV(rdv, decalages[0], decalages[1]); // Tentative de mise à jour du rendez-vous
+                String newVersion = DateMethods.decalerRDV(rdvs.get(i), decalages[0], decalages[1]); // Tentative de mise à jour du rendez-vous
 
                 if (newVersion != null) {
-                    rdvs.set(i, newVersion);
-                    System.out.println("Rendez-vous décalé avec succès :");
-                    System.out.println(newVersion);
-                } else {
-                    System.out.println("Erreur lors du décalage du rendez-vous");
+                    rdvs.set(i, newVersion); // Modifie dans la liste des rendez-vous
+                    try {
+                        System.out.println("Rendez-vous décalé avec succès :");
+                        System.out.println(newVersion);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Erreur lors de la conversion de la date : format invalide");
+                    }
                 }
             }
         }
@@ -137,14 +154,15 @@ public class MenuMethods {
     }
 
     public static void rechercherRDV(ArrayList<String> rdvs, ArrayList<String> referenceCode) { // Fonction qui permet de rechercher les rendez-vous par le code de référence
-        System.out.print("Entrez un fragment du code de référence : ");
-        String fragment = sc.nextLine().trim().toUpperCase();
+        System.out.print("\nEntrez un fragment du code de référence : ");
+        String fragment = sc.nextLine().toUpperCase();
 
         boolean found = false;
-        for (String code : referenceCode) {
-            if (code.toUpperCase().contains(fragment)) {
-                System.out.println(rdvs);
+        for (int i = 0; i < rdvs.size(); i++) { // On récupère le code de référence associé
+            String code = referenceCode.get(i).toUpperCase();
+            if (code.contains(fragment)) { // Vérifie si ce code contient le fragment recherché
                 found = true;
+                System.out.println(rdvs);
             }
         }
         if (!found) {
@@ -152,8 +170,8 @@ public class MenuMethods {
         }
     }
 
-    public static void annulerRDV(ArrayList<String> rdvs, ArrayList<String> referenceCode) { // Fonction qui permet d'annuler les rendez-vous
-        System.out.print("Entrez le code de référence complet : ");
+    public static void annulerRDV(ArrayList<String> rdvs, ArrayList<String> referenceCode, ArrayList<LocalDateTime> datesRDV) { // Fonction qui permet d'annuler les rendez-vous
+        System.out.print("\nEntrez le code de référence complet : ");
         String inputCode = sc.nextLine().toUpperCase();
 
         boolean removed = false;
@@ -162,6 +180,7 @@ public class MenuMethods {
             if (referenceCode.get(i).equals(inputCode)) {
                 rdvs.remove(i);
                 referenceCode.remove(i);
+                datesRDV.remove(i);
                 removed = true;
                 break;  // Sortir de la boucle, un seul RDV à annuler
             }
@@ -170,7 +189,7 @@ public class MenuMethods {
         if (removed) {
             System.out.println("Rendez-vous annulé avec succès");
         } else {
-            System.out.println("Aucun rendez-vous correspondant trouvé");
+            System.out.println("Aucun rendez-vous correspondant trouvé ou vous n'avez pas mis le code complet");
         }
     }
 }
